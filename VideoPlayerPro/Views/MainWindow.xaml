@@ -1,0 +1,170 @@
+﻿ <Window x:Name="Window"
+        x:Class="VideoPlayerPro.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VideoPlayerPro.Views"
+        xmlns:Controls="clr-namespace:VideoPlayerPro.Controls"
+        mc:Ignorable="d"
+        Title="Video Player Pro"
+        Height="600"
+        Width="1000"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        WindowStyle="None">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <Border Background="#0B0D10" BorderBrush="#292D34" BorderThickness="1" ClipToBounds="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Panel.ZIndex="10">
+                <Menu Style="{StaticResource MenuStyle}">
+                    <MenuItem Header="File" Style="{StaticResource TopLevelMenuItemStyle}">
+                        <MenuItem Header="Open file"/>
+                        <MenuItem Header="Open files"/>
+                        <MenuItem Header="Open folder"/>
+                        <MenuItem Header="Open URL"/>
+                        <MenuItem Header="Recent files"/>
+                        <MenuItem Header="Exit"/>
+                    </MenuItem>
+                    
+                    <MenuItem Header="Playback" Style="{StaticResource TopLevelMenuItemStyle}">
+                        <MenuItem Header="Play/Pause"/>
+                        <MenuItem Header="Stop"/>
+                        <MenuItem Header="Speed" Style="{StaticResource SubMenuItemStyle}">
+                            <MenuItem Header="0.5x"/>
+                            <MenuItem Header="1.0x"/>
+                            <MenuItem Header="1.25x"/>
+                            <MenuItem Header="1.5x"/>
+                            <MenuItem Header="2.0x"/>
+                        </MenuItem>
+                        <MenuItem Header="Jump forward (10s)"/>
+                        <MenuItem Header="Jump backward (10s)"/>
+                        <MenuItem Header="Skip fragment video"/>
+                    </MenuItem>
+                    
+                    <MenuItem Header="Audio" Style="{StaticResource TopLevelMenuItemStyle}">
+                        <MenuItem Header="Volume">
+                            <MenuItem Header="10%"/>
+                            <MenuItem Header="20%"/>
+                            <MenuItem Header="30%"/>
+                            <MenuItem Header="40%"/>
+                            <MenuItem Header="50%"/>
+                            <MenuItem Header="60%"/>
+                            <MenuItem Header="70%"/>
+                            <MenuItem Header="80%"/>
+                            <MenuItem Header="90%"/>
+                            <MenuItem Header="100%"/>
+                            <MenuItem Header="110%"/>
+                            <MenuItem Header="120%"/>
+                            <MenuItem Header="130%"/>
+                            <MenuItem Header="140%"/>
+                            <MenuItem Header="150%"/>
+                            <MenuItem Header="160%"/>
+                            <MenuItem Header="170%"/>
+                            <MenuItem Header="180%"/>
+                            <MenuItem Header="190%"/>
+                            <MenuItem Header="200%"/>
+                        </MenuItem>
+                        <MenuItem Header="Mute"/>
+                    </MenuItem>
+                    
+                    <MenuItem Header="Video" Style="{StaticResource TopLevelMenuItemStyle}">
+                        <MenuItem Header="Aspect ratio">
+                            <MenuItem Header="Default"/>
+                            <MenuItem Header="4:3"/>
+                            <MenuItem Header="16:9"/>
+                        </MenuItem>
+                        <MenuItem Header="Fullscreen"/>
+                    </MenuItem>
+                    
+                    <MenuItem Header="Help" Style="{StaticResource TopLevelMenuItemStyle}">
+                        <MenuItem Header="Check for updates"/>
+                        <MenuItem Header="About"/>
+                    </MenuItem>
+                </Menu>
+            </Grid>
+
+            <Grid Grid.RowSpan="4">
+                <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Uniform"/>
+                <Border Background="#25000000"/>
+
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="28" Background="#E915181D" BorderBrush="#30353E" BorderThickness="1" Padding="6">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Width="48" Height="48" Margin="8" Style="{StaticResource CenterButtonStyle}"/>
+                        <Button Width="62" Height="62" Margin="8" Style="{StaticResource CenterButtonStyle}"/>
+                        <Button Width="82" Height="82" Margin="8" Background="#7C5CFF" Style="{StaticResource CenterButtonStyle}"/>
+                        <Button Width="62" Height="62" Margin="8" Style="{StaticResource CenterButtonStyle}"/>
+                        <Button Width="48" Height="48" Margin="8" Style="{StaticResource CenterButtonStyle}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            
+            <Border Grid.Row="0" Background="#111419">
+                <Grid Margin="18,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image Width="34" Height="34" Margin="10"/>
+
+                    <Label Grid.Column="1" Content="Video Player Pro" Foreground="#B8BDC6" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10">
+                        <Button Style="{StaticResource WindowButtonStyle}"/>
+                        <Button Style="{StaticResource WindowButtonStyle}"/>
+                        <Button Style="{StaticResource WindowButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Grid.RowSpan="2" Background="#111419" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,8,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="00:00:00" Foreground="#B8BDC6" FontSize="14" VerticalAlignment="Center" Margin="10,0"/>
+                        <Controls:TimeLine x:Name="VideoTimeline" Grid.Column="1" TimeLineMinValue="0" TimeLineMaxValue="100" TimelineCornerRadius="6"/>
+                        <Label Grid.Column="2" Content="00:00:00" Foreground="#B8BDC6" FontSize="14" VerticalAlignment="Center" Margin="10,0"/>
+                    </Grid>
+
+                    <Border Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="28" Background="#E915181D" BorderBrush="#30353E" BorderThickness="1" Padding="6" Margin="10,0">
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Width="42" Height="42" Margin="4" Style="{StaticResource CenterButtonStyle}"/>
+                            <Button Width="42" Height="42" Margin="4" Style="{StaticResource CenterButtonStyle}"/>
+                            <Button Width="58" Height="58" Margin="6,4" Background="#7C5CFF" Style="{StaticResource CenterButtonStyle}"/>
+                            <Button Width="42" Height="42" Margin="4" Style="{StaticResource CenterButtonStyle}"/>
+                            <Button Width="42" Height="42" Margin="4" Style="{StaticResource CenterButtonStyle}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="VideoPlayerPro.Controls.TimeLine"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Name="TimelineRoot"
+          MouseLeftButtonDown="TimelineRoot_MouseLeftButtonDown"
+          MouseMove="TimelineRoot_MouseMove"
+          MouseLeave="TimelineRoot_MouseLeave"
+          SizeChanged="TimelineRoot_SizeChanged">
+
+        <Border x:Name="TimelineBackground"
+                Height="{Binding TimelineHeight, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Margin="{Binding TimelineMargin, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                VerticalAlignment="Center"
+                Background="{Binding TimelineBackgroundColor, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CornerRadius="{Binding TimelineCornerRadius, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+        <Border x:Name="TimelineBuffer"
+                Width="0"
+                Height="{Binding TimelineHeight, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Margin="{Binding TimelineMargin, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="{Binding TimelineBufferBackgroundColor, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CornerRadius="{Binding TimelineCornerRadius, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                IsHitTestVisible="False"/>
+
+        <Border x:Name="FollowToCursor"
+                Width="0"
+                Height="{Binding TimelineHeight, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="{Binding FollowToCursorColor, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Opacity="{Binding FollowToCursorOpacity, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CornerRadius="{Binding TimelineCornerRadius, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                IsHitTestVisible="False"/>
+
+        <Border x:Name="TimelineProgress"
+                Width="0"
+                Height="{Binding TimelineHeight, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Margin="{Binding TimelineMargin, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="{Binding TimelineProgressBackgroundColor, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CornerRadius="{Binding TimelineCornerRadius, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                IsHitTestVisible="False"/>
+
+        <Ellipse x:Name="TimelineThumb"
+                 Width="{Binding ThumbSize, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                 Height="{Binding ThumbSize, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Fill="{Binding ThumbColor, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                 MouseLeftButtonDown="TimelineThumb_MouseLeftButtonDown"
+                 MouseMove="TimelineThumb_MouseMove"
+                 MouseLeftButtonUp="TimelineThumb_MouseLeftButtonUp"/>
+
+    </Grid>
+</UserControl>
