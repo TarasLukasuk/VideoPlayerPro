@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="logo" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" viewBox="0 0 120 120">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #7c5cff;
+      }
+
+      .st1 {
+        fill: #fff;
+        stroke: #fff;
+        stroke-linejoin: round;
+        stroke-width: 10px;
+      }
+    </style>
+  </defs>
+  <circle class="st0" cx="60" cy="60" r="60"/>
+  <path class="st1" d="M38,34v52l44-26-44-26Z"/>
+</svg>

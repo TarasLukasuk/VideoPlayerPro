@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Resources\Icons\" />
     <Folder Include="Resources\Themes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Svg" Version="3.4.8" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,9 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Resources/Styles/WindowButtonStyle.xaml"/>
-        <ResourceDictionary Source="/Resources/Styles/CenterButtonStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/ButtonStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/CheckBoxStyle.xaml"/>
         <ResourceDictionary Source="/Resources/Styles/MenuStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/VolumeSliderStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
