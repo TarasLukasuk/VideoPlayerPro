@@ -5,62 +5,51 @@ using System.IO;
 using System.Windows.Media;
 using VideoPlayerPro.Converters;
 using VideoPlayerPro.Enums;
+using VideoPlayerPro.Utilities;
 
-namespace VideoPlayerPro.Service
+namespace VideoPlayerPro.Service;
+
+internal sealed class SvgService : SvgAbstract
 {
-    internal class SvgService : SvgAbstract
+    private static readonly string _svgFolderPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Resources", "Icons"));
+    private static readonly SvgDocumentCacheService _svgDocumentCacheService = new SvgDocumentCacheService();
+
+    public HashSet<string> KnownIcons { get; } 
+
+    private static readonly WpfDrawingSettings _settings = new()
     {
-        private static readonly string SvgFolderPath = Path.Combine(AppContext.BaseDirectory, "Resources", "Icons");
+        IncludeRuntime = false,
+        TextAsGeometry = true,
+        OptimizePath = true
+    };
 
-        private static WpfDrawingSettings CreateSettings()
+    public SvgService()
+    {
+        KnownIcons = Enum.GetNames<IconType>().ToHashSet(StringComparer.OrdinalIgnoreCase);
+    }
+
+    public override DrawingImage Load(string svgName)
+    {
+        string path = Path.Combine(_svgFolderPath, svgName + ".svg");
+
+        if (!File.Exists(path))
         {
-            WpfDrawingSettings wpfDrawingSettings = new()
-            {
-                IncludeRuntime = false,
-                TextAsGeometry = true,
-                OptimizePath = true
-            };
-
-            return wpfDrawingSettings;
+            throw new FileNotFoundException("SVG file not found.", path);
         }
 
-        public override DrawingImage Load(string svgName)
+        using FileSvgReader reader = new(_settings);
         {
-            if (string.IsNullOrWhiteSpace(svgName))
-            {
-                throw new ArgumentException("SVG name cannot be null or empty.", nameof(svgName));
-            }
-
-            string fileName = Path.GetFileName(svgName);
-            string iconName = Path.GetFileNameWithoutExtension(fileName);
-
-            if (!Enum.GetNames<IconType>().Contains(iconName, StringComparer.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException($"'{svgName}' is not a known icon.", nameof(svgName));
-            }
-
-            string path = Path.Combine(SvgFolderPath, Path.ChangeExtension(fileName, ".svg"));
-
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("SVG file not found.", path);
-            }
-
-            using FileSvgReader reader = new(CreateSettings());
-
             DrawingGroup drawing = reader.Read(path);
+            SvgDocument? svgCopy = SvgCopier.Copy(reader.SvgDocument);
 
-            SvgDocument? svgCopy = SvgCopier.Copy(reader.SvgDocument) ?? throw new InvalidOperationException("Failed to copy SVG document.");
-
-            CacheAbstract<string, SvgDocument> svgCacheService = new SvgDocumentCacheService();
-            svgCacheService.Set(iconName, svgCopy);
+            _svgDocumentCacheService.Set(svgName, svgCopy);
 
             return DrawingImageConverter.Convert(drawing);
         }
+    }
 
-        public override DrawingImage ChangeColor(SvgDocument svgDocument, string oldColor, string newColor)
-        {
-            throw new NotImplementedException();
-        }
+    public override DrawingImage ChangeColor(SvgDocument svgDocument, string oldColor, string newColor)
+    {
+        throw new NotImplementedException();
     }
 }

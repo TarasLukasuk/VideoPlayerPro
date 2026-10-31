@@ -1,12 +1,9 @@
-﻿using SharpVectors.Dom.Svg;
+﻿namespace VideoPlayerPro.Service;
 
-namespace VideoPlayerPro.Service
+internal abstract class CacheAbstract<TKey, TValue>
 {
-    internal abstract class CacheAbstract<TKey, TValue>
-    {
-        protected abstract Dictionary<TKey, TValue> Cache { get; }
+    protected abstract Dictionary<TKey, TValue> Cache { get; }
 
-        public abstract TValue Get(TKey key);
-        public abstract void Set(TKey key, TValue value);
-    }
+    public abstract TValue Get(TKey key);
+    public abstract void Set(TKey key, TValue value);
 }

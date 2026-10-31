@@ -1,20 +1,14 @@
 ﻿using System.Windows;
+using VideoPlayerPro.ViewModels;
 
-namespace VideoPlayerPro.Views
+namespace VideoPlayerPro.Views;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (Exception ex)
-            {
+        InitializeComponent();
 
-                MessageBox.Show($"{ex.ToString()}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        DataContext = new MainViewModel();
     }
 }

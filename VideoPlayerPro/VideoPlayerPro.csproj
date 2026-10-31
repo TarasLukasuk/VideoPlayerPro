@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Validators\" />
     <Folder Include="Resources\Themes\" />
   </ItemGroup>
 

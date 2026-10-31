@@ -1,18 +1,19 @@
 ﻿using SharpVectors.Dom.Svg;
 
-namespace VideoPlayerPro.Service
+namespace VideoPlayerPro.Service;
+
+internal class SvgDocumentCacheService : CacheAbstract<string, SvgDocument>
 {
-    internal class SvgDocumentCacheService : CacheAbstract<string, SvgDocument>
+    private readonly object _lock = new();
+
+    protected override Dictionary<string, SvgDocument> Cache { get; } = new Dictionary<string, SvgDocument>();
+
+    public override SvgDocument Get(string key)
     {
-        protected override Dictionary<string, SvgDocument> Cache { get; } = [];
+        key = NormalizeCacheKey(key);
 
-        public override SvgDocument Get(string key)
+        lock (_lock)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                throw new ArgumentException("Key cannot be null or empty.", nameof(key));
-            }
-
             if (!Cache.TryGetValue(key, out var value))
             {
                 throw new KeyNotFoundException($"The key '{key}' was not found in the cache.");
@@ -20,22 +21,24 @@ namespace VideoPlayerPro.Service
 
             return value;
         }
+    }
 
-        public override void Set(string key, SvgDocument value)
+    public override void Set(string key, SvgDocument value)
+    {
+        key = NormalizeCacheKey(key);
+
+        ArgumentNullException.ThrowIfNull(value);
+
+        lock (_lock)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                throw new ArgumentException("Key cannot be null or empty.", nameof(key));
-            }
-
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value), "Value cannot be null.");
-            }
-
             Cache[key] = value;
         }
+    }
 
-        
+    private static string NormalizeCacheKey(string key)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(key);
+
+        return key.Trim().ToLowerInvariant();
     }
 }

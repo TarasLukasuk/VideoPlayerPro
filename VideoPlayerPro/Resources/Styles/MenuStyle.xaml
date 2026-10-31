@@ -10,33 +10,88 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
 
+    <Style x:Key="SubMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Foreground" Value="#D9DCE2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="MinWidth" Value="190"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource SubMenuItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Grid SnapsToDevicePixels="True">
+                        <Border x:Name="ItemBorder" Background="Transparent" CornerRadius="5" Margin="2,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter Grid.Column="0" ContentSource="Icon" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0"/>
+                                <ContentPresenter Grid.Column="1" ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True"/>
+                                
+                                <Path x:Name="Arrow" Grid.Column="2" Data="M 0 0 L 4 4 L 0 8 Z" Fill="{TemplateBinding Foreground}" Margin="10,0" VerticalAlignment="Center" Visibility="Collapsed"/>
+                            </Grid>
+                        </Border>
+
+                        <Popup x:Name="PART_Popup" Placement="Right" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Border Background="#171A20" BorderBrush="#30353E" BorderThickness="1" CornerRadius="8" Padding="5" Margin="4,0,10,10" MinWidth="120">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.35"/>
+                                </Border.Effect>
+                                
+                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                            </Border>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasItems" Value="True">
+                            <Setter TargetName="Arrow" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#252A32"/>
+                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#5D636D"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="TopLevelMenuItemStyle" TargetType="{x:Type MenuItem}">
         <Setter Property="Foreground" Value="#D9DCE2"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="13,0"/>
         <Setter Property="Height" Value="34"/>
-        <Setter Property="FontSize" Value="13"/>
         <Setter Property="MinWidth" Value="70"/>
+        <Setter Property="FontSize" Value="13"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource SubMenuItemStyle}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
                     <Grid SnapsToDevicePixels="True">
                         <Border x:Name="TopBorder" Background="Transparent" CornerRadius="6" Margin="5,0">
-                            <ContentPresenter ContentSource="Header" Margin="2,0" VerticalAlignment="Center" HorizontalAlignment="Center" RecognizesAccessKey="True" TextElement.Foreground="{TemplateBinding Foreground}" TextElement.FontSize="{TemplateBinding FontSize}"/>
+                            <ContentPresenter ContentSource="Header" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Center" RecognizesAccessKey="True"/>
                         </Border>
 
-                        <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" IsOpen="{TemplateBinding IsSubmenuOpen}" PopupAnimation="Fade" Focusable="False">
-                            <Border Background="#171A20" BorderBrush="#30353E" BorderThickness="1" CornerRadius="0,0,8,8" Padding="5" Margin="0,5,0,0">
+                        <Popup x:Name="PART_Popup" Placement="Bottom" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Border Background="#171A20" BorderBrush="#30353E" BorderThickness="1" CornerRadius="8" Padding="5" Margin="0,5,10,10" MinWidth="190">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.35"/>
                                 </Border.Effect>
-
-                                <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle" SnapsToDevicePixels="True"/>
+                                
+                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                             </Border>
                         </Popup>
                     </Grid>
@@ -52,92 +107,6 @@
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle"  Value="{DynamicResource SubMenuItemStyle}"/>
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel/>
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="SubMenuItemStyle" TargetType="{x:Type MenuItem}">
-        <Setter Property="Foreground" Value="#D9DCE2"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Height" Value="34"/>
-        <Setter Property="MinWidth" Value="190"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontSize" Value="13"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type MenuItem}">
-                    <Grid SnapsToDevicePixels="True">
-                        <Border x:Name="ItemBorder" Background="Transparent" CornerRadius="5" Margin="2,1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Image x:Name="Icon" Grid.Column="0" Source="{TemplateBinding Icon}" Width="16" Height="16" Margin="10" VerticalAlignment="Center" Visibility="Collapsed"/>
-                                <ContentPresenter x:Name="HeaderPresenter" Grid.Column="1" ContentSource="Header"  VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" TextElement.Foreground="{TemplateBinding Foreground}" TextElement.FontSize="{TemplateBinding FontSize}"/>
-                                <Path x:Name="Arrow" Grid.Column="2" Data="M 0 0 L 4 4 L 0 8 Z" Fill="{TemplateBinding Foreground}" Width="4" Height="8" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
-                            </Grid>
-                        </Border>
-
-                        <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Right" PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" IsOpen="{TemplateBinding IsSubmenuOpen}" PopupAnimation="Fade" Focusable="False">
-                            <Border Background="#171A20" BorderBrush="#30353E" BorderThickness="1" CornerRadius="8" Padding="5" Margin="4,0,0,0">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.35"/>
-                                </Border.Effect>
-
-                                <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle" SnapsToDevicePixels="True"/>
-                            </Border>
-                        </Popup>
-                    </Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Icon" Value="{x:Null}">
-                            <Setter TargetName="Icon" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-
-                        <Trigger Property="HasItems" Value="True">
-                            <Setter TargetName="Arrow" Property="Visibility" Value="Visible"/>
-                        </Trigger>
-
-                        <Trigger Property="IsHighlighted" Value="True">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#252A32"/>
-                            <Setter Property="Foreground" Value="#FFFFFF"/>
-                        </Trigger>
-
-                        <Trigger Property="IsSubmenuOpen" Value="True">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#252A32"/>
-                            <Setter Property="Foreground" Value="#FFFFFF"/>
-                        </Trigger>
-
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="#5D636D"/>
-                            <Setter TargetName="ItemBorder" Property="Opacity" Value="0.6"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource SubMenuItemStyle}"/>
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel/>
-                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>

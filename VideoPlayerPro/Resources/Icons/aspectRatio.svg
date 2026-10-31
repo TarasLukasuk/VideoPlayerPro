@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" data-name="Слой_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 102 84">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 8px;
+      }
+    </style>
+  </defs>
+  <rect class="st0" x="4" y="4" width="94" height="76" rx="5" ry="5"/>
+  <path class="st0" d="M19,63l20-19M19,63v-12M19,63h13"/>
+  <path class="st0" d="M83,18l-20,19M83,18h-13M83,18v13"/>
+</svg>
