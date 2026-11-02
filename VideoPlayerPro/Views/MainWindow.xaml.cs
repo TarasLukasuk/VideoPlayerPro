@@ -1,10 +1,15 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using VideoPlayerPro.ViewModels;
 
 namespace VideoPlayerPro.Views;
 
 public partial class MainWindow : Window
 {
+    private readonly MainViewModel _viewModel = new();
+
+    private double _previousVolume = 0.5;
+
     public MainWindow()
     {
         InitializeComponent();

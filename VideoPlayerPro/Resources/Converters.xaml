@@ -1,7 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                    xmlns:converters="clr-namespace:VideoPlayerPro.Converters">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:VideoPlayerPro.Converters">
 
-    <converters:IconMultiConverter x:Key="IconMultiConverter"/>
+    <converters:IconMultiConverter x:Key="IconMultiConverter" />
+    <converters:DoubleToPercentConverter x:Key="DoubleToPercentConverter" />
 
 </ResourceDictionary>
