@@ -327,7 +327,7 @@
                 </Border>
             </Grid>
             
-            <Border Grid.Row="0" Background="#111419">
+            <Border x:Name="TopBar" Grid.Row="0" Background="#111419">
                 <Grid Margin="18,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -421,11 +421,11 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Foreground="#B8BDC6" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" Text="{Binding Value, ElementName=VolumeSlider, Converter={StaticResource DoubleToPercentConverter}}"/>
-                                <Slider x:Name="VolumeSlider" Grid.Column="1" Width="200" Minimum="0" Maximum="200" Value="{Binding VolumeViewModel.Volume, Mode=TwoWay}" Style="{StaticResource TriangleSlider}" Margin="6"/>
+                                <Slider x:Name="VolumeSlider" Grid.Column="1" Width="200" Minimum="0" Maximum="200" Value="{Binding Volume, Mode=TwoWay}" Style="{StaticResource TriangleSlider}" Margin="16,6,-4,6"/>
                             </Grid>
                         </Border>
 
-                        <CheckBox Width="42" Height="42" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}">
+                        <CheckBox x:Name="FullScreenCheckBox" Width="42" Height="42" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}" Checked="FullScreenCheckBox_Checked" Unchecked="FullScreenCheckBox_Unchecked">
                             <CheckBox.Content>
                                 <Image Margin="5" Stretch="Uniform">
                                     <Image.Style>
