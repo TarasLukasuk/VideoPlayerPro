@@ -273,7 +273,7 @@
                             </MenuItem.Icon>
                             <MenuItem Header="Default">
                                 <MenuItem.Icon>
-                                    <Image Source="{Binding Path=IconsProviderService[AspectRatioDefaul]}" Width="16" Height="16" Stretch="Uniform"/>
+                                    <Image Source="{Binding Path=IconsProviderService[AspectRatioDefault]}" Width="16" Height="16" Stretch="Uniform"/>
                                 </MenuItem.Icon>
                             </MenuItem>
                             <MenuItem Header="4:3">
@@ -287,11 +287,19 @@
                                 </MenuItem.Icon>
                             </MenuItem>
                         </MenuItem>
-                        <MenuItem Header="Fullscreen"/>
-                        <MenuItem Header="Normalscreen"/>
+                        <MenuItem Header="Full Screen">
+                            <MenuItem.Icon>
+                                <Image Source="{Binding Path=IconsProviderService[FullScreenVideo]}" Width="16" Height="16" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Normal Screen">
+                            <MenuItem.Icon>
+                                <Image Source="{Binding Path=IconsProviderService[NormalScreenVideo]}" Width="16" Height="16" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
                     <MenuItem Header="Help" Style="{DynamicResource TopLevelMenuItemStyle}">
-                        <MenuItem Header="Check for updates"/>
+                        <MenuItem Header="Сhange key"/>
                         <MenuItem Header="About"/>
                     </MenuItem>
                 </Menu>
@@ -388,7 +396,7 @@
                             </CheckBox.Content>
                         </CheckBox>
 
-                        <CheckBox x:Name="VolumeCheckBox" Width="42" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}" Checked="VolumeCheckBox_Checked" Unchecked="VolumeCheckBox_Unchecked">
+                        <CheckBox x:Name="VolumeCheckBox" Width="42" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding VolumeViewModel.IsMuted, Mode=TwoWay}">
                             <CheckBox.Content>
                                 <Image Margin="5" Stretch="Uniform">
                                     <Image.Style>
@@ -413,7 +421,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Foreground="#B8BDC6" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" Text="{Binding Value, ElementName=VolumeSlider, Converter={StaticResource DoubleToPercentConverter}}"/>
-                                <Slider x:Name="VolumeSlider" Grid.Column="1" Width="200" Minimum="0" Maximum="200" Value="75" Style="{StaticResource TriangleSlider}"  Margin="6" ValueChanged="VolumeSlider_ValueChanged"/>
+                                <Slider x:Name="VolumeSlider" Grid.Column="1" Width="200" Minimum="0" Maximum="200" Value="{Binding VolumeViewModel.Volume, Mode=TwoWay}" Style="{StaticResource TriangleSlider}" Margin="6"/>
                             </Grid>
                         </Border>
 

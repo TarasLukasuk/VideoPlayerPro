@@ -2,5 +2,6 @@
 
 public class MainViewModel : ViewModelBase
 {
-	public IconsProviderService IconsProviderService { get; set; } = new IconsProviderService();
+    public IconsProviderService IconsProviderService { get; set; } = new IconsProviderService();
+    public VolumeViewModel VolumeViewModel { get; } = new VolumeViewModel();
 }

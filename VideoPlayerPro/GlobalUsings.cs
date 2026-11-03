@@ -11,3 +11,5 @@ global using VideoPlayerPro.Converters;
 global using VideoPlayerPro.Enums;
 global using System.Globalization;
 global using System.Windows.Data;
+global using System.Windows.Controls;
+global using VideoPlayerPro.ViewModels;
