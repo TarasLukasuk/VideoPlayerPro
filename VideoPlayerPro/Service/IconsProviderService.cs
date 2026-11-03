@@ -1,12 +1,8 @@
-﻿using System.Windows.Media;
-using VideoPlayerPro.Utilities;
-using VideoPlayerPro.ViewModels.Base;
-
-namespace VideoPlayerPro.Service;
+﻿namespace VideoPlayerPro.Service;
 
 public class IconsProviderService : ViewModelBase
 {
-    private static SvgService _svgService =new();
+    private readonly SvgService _svgService =new();
 
     public DrawingImage this[string index, string targetChar, string replacementChar]
     {

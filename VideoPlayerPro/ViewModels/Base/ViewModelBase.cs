@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace VideoPlayerPro.ViewModels.Base
+﻿namespace VideoPlayerPro.ViewModels.Base
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

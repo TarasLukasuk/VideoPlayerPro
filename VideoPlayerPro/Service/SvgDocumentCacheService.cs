@@ -1,6 +1,4 @@
-﻿using SharpVectors.Dom.Svg;
-
-namespace VideoPlayerPro.Service;
+﻿namespace VideoPlayerPro.Service;
 
 internal class SvgDocumentCacheService : CacheAbstract<string, SvgDocument>
 {

@@ -1,6 +1,4 @@
-﻿using SharpVectors.Dom.Svg;
-
-namespace VideoPlayerPro.Utilities
+﻿namespace VideoPlayerPro.Utilities
 {
     internal static class SvgCopier
     {

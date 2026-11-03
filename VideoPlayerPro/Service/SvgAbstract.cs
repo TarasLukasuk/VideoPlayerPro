@@ -1,7 +1,4 @@
-﻿using SharpVectors.Dom.Svg;
-using System.Windows.Media;
-
-namespace VideoPlayerPro.Service;
+﻿namespace VideoPlayerPro.Service;
 
 internal abstract class SvgAbstract
 {

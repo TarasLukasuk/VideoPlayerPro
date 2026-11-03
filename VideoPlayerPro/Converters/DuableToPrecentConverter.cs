@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-
-namespace VideoPlayerPro.Converters;
+﻿namespace VideoPlayerPro.Converters;
 
 public class DoubleToPercentConverter : IValueConverter
 {

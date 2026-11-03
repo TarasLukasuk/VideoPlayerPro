@@ -1,9 +1,4 @@
-﻿using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using VideoPlayerPro.Service;
-
-namespace VideoPlayerPro.Converters;
+﻿namespace VideoPlayerPro.Converters;
 
 public class IconMultiConverter : IMultiValueConverter
 {

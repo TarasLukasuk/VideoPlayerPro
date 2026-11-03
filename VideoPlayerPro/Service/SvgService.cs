@@ -3,8 +3,6 @@ using SharpVectors.Dom.Svg;
 using SharpVectors.Renderers.Wpf;
 using System.IO;
 using System.Windows.Media;
-using VideoPlayerPro.Converters;
-using VideoPlayerPro.Enums;
 using VideoPlayerPro.Utilities;
 
 namespace VideoPlayerPro.Service;
@@ -12,7 +10,7 @@ namespace VideoPlayerPro.Service;
 internal sealed class SvgService : SvgAbstract
 {
     private static readonly string _svgFolderPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Resources", "Icons"));
-    private static readonly SvgDocumentCacheService _svgDocumentCacheService = new SvgDocumentCacheService();
+    private static readonly SvgDocumentCacheService _svgDocumentCacheService = new();
 
     public HashSet<string> KnownIcons { get; } 
 

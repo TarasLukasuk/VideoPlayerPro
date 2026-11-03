@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace VideoPlayerPro.Utilities;
+﻿namespace VideoPlayerPro.Utilities;
 
 class SvgNameNormalizer
 {

@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace VideoPlayerPro.Converters;
+﻿namespace VideoPlayerPro.Converters;
 
 internal static class DrawingImageConverter
 {

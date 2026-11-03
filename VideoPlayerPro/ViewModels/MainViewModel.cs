@@ -1,7 +1,4 @@
-﻿using VideoPlayerPro.Service;
-using VideoPlayerPro.ViewModels.Base;
-
-namespace VideoPlayerPro.ViewModels;
+﻿namespace VideoPlayerPro.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {

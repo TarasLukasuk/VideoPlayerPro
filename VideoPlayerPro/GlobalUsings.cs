@@ -1,0 +1,13 @@
+﻿global using VideoPlayerPro.Service;
+global using VideoPlayerPro.ViewModels.Base;
+global using System.ComponentModel;
+global using System.Runtime.CompilerServices;
+global using System.Windows;
+global using SharpVectors.Dom.Svg;
+global using System.IO;
+global using System.Windows.Media;
+global using VideoPlayerPro.Utilities;
+global using VideoPlayerPro.Converters;
+global using VideoPlayerPro.Enums;
+global using System.Globalization;
+global using System.Windows.Data;
