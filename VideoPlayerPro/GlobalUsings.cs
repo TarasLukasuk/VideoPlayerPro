@@ -13,3 +13,5 @@ global using System.Globalization;
 global using System.Windows.Data;
 global using System.Windows.Controls;
 global using VideoPlayerPro.ViewModels;
+global using System.Windows.Threading;
+global using System.Windows.Input;

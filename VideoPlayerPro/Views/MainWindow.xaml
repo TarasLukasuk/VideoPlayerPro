@@ -311,8 +311,8 @@
                 </TextBlock.Effect>
             </TextBlock>
 
-            <Grid Grid.RowSpan="5">
-                <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Uniform"/>
+            <Grid x:Name="MainGrid" Grid.RowSpan="5">
+                <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Uniform"/>
                 
                 <Border Background="#25000000"/>
 
@@ -348,7 +348,7 @@
             <Button Grid.Row="3" Width="42" Height="42" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"/>
             <CheckBox Grid.Row="3" Width="42" Height="42" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Style="{StaticResource CheckBoxStyle}"/>
             
-            <Border Grid.Row="4" Background="#111419" VerticalAlignment="Bottom">
+            <Border x:Name="BottomBorder" Grid.Row="4" Background="#111419" VerticalAlignment="Bottom">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
