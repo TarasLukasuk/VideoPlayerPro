@@ -1,0 +1,21 @@
+ <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Bootstrap 5-inspired dark palette with the existing violet accent. -->
+    <SolidColorBrush x:Key="Bootstrap.WindowBackground" Color="#212529"/>
+    <SolidColorBrush x:Key="Bootstrap.Surface" Color="#2B3035"/>
+    <SolidColorBrush x:Key="Bootstrap.SurfaceRaised" Color="#343A40"/>
+    <SolidColorBrush x:Key="Bootstrap.SurfaceHover" Color="#3D444B"/>
+    <SolidColorBrush x:Key="Bootstrap.Border" Color="#495057"/>
+    <SolidColorBrush x:Key="Bootstrap.Text" Color="#F8F9FA"/>
+    <SolidColorBrush x:Key="Bootstrap.TextMuted" Color="#ADB5BD"/>
+    <SolidColorBrush x:Key="Bootstrap.Primary" Color="#7C5CFF"/>
+    <SolidColorBrush x:Key="Bootstrap.PrimaryHover" Color="#927BFF"/>
+    <SolidColorBrush x:Key="Bootstrap.PrimaryPressed" Color="#6548E8"/>
+    <SolidColorBrush x:Key="Bootstrap.Danger" Color="#DC3545"/>
+    <SolidColorBrush x:Key="Bootstrap.DangerHover" Color="#BB2D3B"/>
+
+    <CornerRadius x:Key="Bootstrap.RadiusSmall">6</CornerRadius>
+    <CornerRadius x:Key="Bootstrap.Radius">8</CornerRadius>
+    <CornerRadius x:Key="Bootstrap.RadiusLarge">12</CornerRadius>
+</ResourceDictionary>
