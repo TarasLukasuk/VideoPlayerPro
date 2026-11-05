@@ -1,7 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-
-namespace VideoPlayerPro.Views;
+﻿namespace VideoPlayerPro.Views;
 
 public partial class MainWindow : Window
 {
@@ -33,14 +30,52 @@ public partial class MainWindow : Window
 
     private void ShowControls()
     {
+        if (Block.IsChecked == true)
+            return;
+
         BottomBorder.Visibility = Visibility.Visible;
-        TopBar.Visibility = Visibility.Visible;
+        
+        if (FullScreenCheckBox.IsChecked == false)
+        {
+            TopBar.Visibility = Visibility.Visible;
+        }
+
+        if (FullScreenCheckBox.IsChecked == true)
+        {
+            Menu.Visibility = Visibility.Visible;
+        }
+
+        if (Block.IsChecked == false)
+        {
+            BottomBorder.Visibility = Visibility.Visible;
+            TopBar.Visibility = Visibility.Visible;
+            Menu.Visibility = Visibility.Visible;
+            Cast.Visibility = Visibility.Visible;
+        }
     }
 
     private void HideControls()
     {
         BottomBorder.Visibility = Visibility.Collapsed;
         TopBar.Visibility = Visibility.Collapsed;
+
+        if (FullScreenCheckBox.IsChecked == false)
+        {
+            Menu.Visibility = Visibility.Visible;
+        }
+
+        if (FullScreenCheckBox.IsChecked == true)
+        {
+            Menu.Visibility = Visibility.Collapsed;
+        }
+
+        if (Block.IsChecked == true)
+        {
+            BottomBorder.Visibility = Visibility.Collapsed;
+            TopBar.Visibility = Visibility.Collapsed;
+            Menu.Visibility = Visibility.Collapsed;
+            Cast.Visibility = Visibility.Collapsed;
+        }
     }
 
     private void FullScreenCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -53,5 +88,21 @@ public partial class MainWindow : Window
     {
         WindowState = WindowState.Normal;
         TopBar.Visibility = Visibility.Visible;
+    }
+
+    private void Block_Checked(object sender, RoutedEventArgs e)
+    {
+        BottomBorder.Visibility = Visibility.Collapsed;
+        TopBar.Visibility = Visibility.Collapsed;
+        Menu.Visibility = Visibility.Collapsed;
+        Cast.Visibility = Visibility.Collapsed;
+    }
+
+    private void Block_Unchecked(object sender, RoutedEventArgs e)
+    {
+        BottomBorder.Visibility = Visibility.Visible;
+        TopBar.Visibility = Visibility.Visible;
+        Menu.Visibility = Visibility.Visible;
+        Cast.Visibility = Visibility.Visible;
     }
 }

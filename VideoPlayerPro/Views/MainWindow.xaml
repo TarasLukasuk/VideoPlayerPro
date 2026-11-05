@@ -29,7 +29,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" Panel.ZIndex="10">
+            <Grid x:Name="Menu" Grid.Row="1" Panel.ZIndex="10">
                 <Menu Style="{DynamicResource MenuStyle}">
                     <MenuItem Header="File" Style="{DynamicResource TopLevelMenuItemStyle}">
                         <MenuItem Header="Open file">
@@ -313,18 +313,8 @@
 
             <Grid x:Name="MainGrid" Grid.RowSpan="5">
                 <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Uniform"/>
-                
-                <Border Background="#25000000"/>
 
-                <Border VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="28" Background="#E915181D" BorderBrush="#30353E" BorderThickness="1" Padding="6">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button Width="48" Height="48" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                        <Button Width="62" Height="62" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                        <CheckBox Width="82" Height="82" Margin="10" Background="#7C5CFF" Style="{StaticResource CheckBoxStyle}"/>
-                        <Button Width="62" Height="62" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                        <Button Width="48" Height="48" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                    </StackPanel>
-                </Border>
+                <Border Background="#25000000"/>
             </Grid>
             
             <Border x:Name="TopBar" Grid.Row="0" Background="#111419">
@@ -345,8 +335,8 @@
                 </Grid>
             </Border>
 
-            <Button Grid.Row="3" Width="42" Height="42" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"/>
-            <CheckBox Grid.Row="3" Width="42" Height="42" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Style="{StaticResource CheckBoxStyle}"/>
+            <Button x:Name="Cast" Grid.Row="3" Width="42" Height="42" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"/>
+            <CheckBox x:Name="Block" Grid.Row="3" Width="42" Height="42" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Style="{StaticResource CheckBoxStyle}" Checked="Block_Checked" Unchecked="Block_Unchecked"/>
             
             <Border x:Name="BottomBorder" Grid.Row="4" Background="#111419" VerticalAlignment="Bottom">
                 <Grid>
