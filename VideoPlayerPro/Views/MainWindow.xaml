@@ -411,7 +411,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Foreground="#B8BDC6" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" Text="{Binding Value, ElementName=VolumeSlider, Converter={StaticResource DoubleToPercentConverter}}"/>
-                                <Slider x:Name="VolumeSlider" Grid.Column="1" Width="200" Minimum="0" Maximum="200" Value="{Binding Volume, Mode=TwoWay}" Style="{StaticResource TriangleSlider}" Margin="16,6,-4,6"/>
+                                <Controls:TriangleSlider x:Name="VolumeSlider" Grid.Column="1" Width="200" Minimum="0" Maximum="200" Value="{Binding Volume, Mode=TwoWay}"  Margin="16,6,-4,6" GradientStartColor="#5830FD" GradientMiddleColor="#7C5CFF" GradientEndColor="#FFFFFF" GradientStartOffset="0" GradientMiddleOffset="0.5" GradientEndOffset="1"/>
                             </Grid>
                         </Border>
 
