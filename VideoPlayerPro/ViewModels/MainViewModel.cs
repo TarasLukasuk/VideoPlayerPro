@@ -2,8 +2,8 @@
 
 public class MainViewModel : ViewModelBase
 {
-    private double minVolume = 0;
-    private double maxVolume = 200;
+    private readonly double minVolume = 0;
+    private readonly double maxVolume = 200;
     private double _volume = 75;
     private  double _previousVolume = 75;
     private bool _isMuted;
@@ -20,14 +20,14 @@ public class MainViewModel : ViewModelBase
             if (!SetProperty(ref _volume, value))
                 return;
 
-            if (value > minVolume)
+            if (value == minVolume)
             {
-                _previousVolume = value;
-                IsMuted = false;
+                IsMuted = true;
             }
             else
             {
-                IsMuted = true;
+                _previousVolume = value;
+                IsMuted = false;
             }
         }
     }

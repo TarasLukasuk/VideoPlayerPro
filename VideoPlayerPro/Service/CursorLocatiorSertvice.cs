@@ -7,48 +7,80 @@ public sealed class CursorLocatorService : IDisposable
 
     private bool _isIdle;
     private bool _isListening;
+    private bool _isDisposed;
 
     public event Action? OnCursorMoved;
     public event Action? OnCursorIdle;
 
-    public CursorLocatorService(UIElement root, TimeSpan idleTimeout, bool isListening = false)
+    public CursorLocatorService(UIElement root, TimeSpan idleTimeout)
     {
+        ArgumentNullException.ThrowIfNull(root);
+
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(idleTimeout, TimeSpan.Zero);
+
         _root = root;
 
-        _timer = new DispatcherTimer
+        _timer = new DispatcherTimer(DispatcherPriority.Background, root.Dispatcher)
         {
             Interval = idleTimeout
         };
 
         _timer.Tick += OnTimerTick;
         _root.PreviewMouseMove += OnMouseMove;
-        _isListening = isListening;
+    }
+
+    public void StartListening()
+    {
+        if (_isDisposed || _isListening)
+            return;
+
+        _isListening = true;
+        _isIdle = false;
+
+        RestartTimer();
+    }
+
+    public void StopListening()
+    {
+        if (!_isListening)
+            return;
+
+        _isListening = false;
+        _isIdle = false;
+
+        _timer.Stop();
     }
 
     private void OnMouseMove(object sender, MouseEventArgs e)
     {
-        if (_isListening == false)
+        if (!_isListening || _isDisposed)
             return;
-
-        _timer.Stop();
-        _timer.Start();
 
         if (_isIdle)
         {
             _isIdle = false;
             OnCursorMoved?.Invoke();
         }
+
+        RestartTimer();
     }
 
     private void OnTimerTick(object? sender, EventArgs e)
     {
         _timer.Stop();
 
-        if (!_isIdle)
-        {
-            _isIdle = true;
-            OnCursorIdle?.Invoke();
-        }
+        if (!_isListening || _isIdle || _isDisposed)
+            return;
+
+        _isIdle = true;
+
+        OnCursorIdle?.Invoke();
+    }
+
+    private void RestartTimer()
+    {
+        _timer.Stop();
+        _timer.Start();
     }
 
     public void Dispose()
@@ -62,5 +94,8 @@ public sealed class CursorLocatorService : IDisposable
 
         _timer.Tick -= OnTimerTick;
         _root.PreviewMouseMove -= OnMouseMove;
+
+        OnCursorMoved = null;
+        OnCursorIdle = null;
     }
 }
