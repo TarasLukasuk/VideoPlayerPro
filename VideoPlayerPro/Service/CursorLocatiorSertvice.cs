@@ -53,7 +53,13 @@ public sealed class CursorLocatorService : IDisposable
 
     public void Dispose()
     {
-        _timer.Stop();
+        if (_isDisposed)
+            return;
+
+        StopListening();
+
+        _isDisposed = true;
+
         _timer.Tick -= OnTimerTick;
         _root.PreviewMouseMove -= OnMouseMove;
     }
