@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Validators\" />
-    <Folder Include="Resources\Themes\" />
+    <Compile Remove="Resources\Themes\**" />
+    <Compile Remove="Validators\**" />
+    <EmbeddedResource Remove="Resources\Themes\**" />
+    <EmbeddedResource Remove="Validators\**" />
+    <None Remove="Resources\Themes\**" />
+    <None Remove="Validators\**" />
+    <Page Remove="Resources\Themes\**" />
+    <Page Remove="Validators\**" />
   </ItemGroup>
 
   <ItemGroup>

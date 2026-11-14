@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VideoPlayerPro.Views"
         xmlns:Controls="clr-namespace:VideoPlayerPro.Controls"
-        xmlns:viewmodels="clr-namespace:VideoPlayerPro.ViewModels"
+        xmlns:viewmodels="clr-namespace:VideoPlayerPro.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="Video Player Pro" Height="600" Width="1000" Background="Transparent" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
@@ -299,8 +299,16 @@
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="Help" Style="{DynamicResource TopLevelMenuItemStyle}">
-                        <MenuItem Header="Сhange key"/>
-                        <MenuItem Header="About"/>
+                        <MenuItem Header="Сhange key">
+                            <MenuItem.Icon>
+                                <Image Source="{Binding Path=IconsProviderService[ChangeKey]}" Width="16" Height="16" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="About">
+                            <MenuItem.Icon>
+                                <Image Source="{Binding Path=IconsProviderService[About]}" Width="16" Height="16" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
                 </Menu>
             </Grid>
@@ -328,9 +336,28 @@
                     <Image Width="34" Height="34"  Margin="10" Source="{Binding Path=IconsProviderService[Logo]}"/>
                     <Label Grid.Column="1" Content="Video Player Pro" Foreground="#B8BDC6" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
                     <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10">
-                        <Button Style="{StaticResource WindowButtonStyle}"/>
-                        <Button Style="{StaticResource WindowButtonStyle}"/>
-                        <Button Style="{StaticResource WindowButtonStyle}"/>
+                        <Button x:Name="MinimizeWindow" Style="{StaticResource WindowButtonStyle}" Click="MinimizeWindow_Click">
+                            <Image Source="{Binding Path=IconsProviderService[Minimize]}" Width="16" Height="16" Stretch="Uniform"/>
+                        </Button>
+                        <CheckBox x:Name="MaximizeWindow" Style="{StaticResource WindowCheckStyle}" Checked="MaximizeWindow_Checked" Unchecked="MaximizeWindow_Unchecked" >
+                            <CheckBox.Content>
+                                <Image Width="16" Height="16" Stretch="Uniform">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="{Binding Path=IconsProviderService[Normalize]}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType=CheckBox}}" Value="True">
+                                                    <Setter Property="Source" Value="{Binding Path=IconsProviderService[Maximize]}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </CheckBox.Content>
+                        </CheckBox>
+                        <Button x:Name="CloseWindow" Style="{StaticResource WindowButtonStyle}" Click="CloseWindow_Click">
+                            <Image Source="{Binding Path=IconsProviderService[Close]}" Width="16" Height="16" Stretch="Uniform"/>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -359,18 +386,58 @@
 
                     <Border Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="28" Background="#E915181D" BorderBrush="#30353E" BorderThickness="1" Padding="6" Margin="10">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                            <Button Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                            <CheckBox Width="58" Height="58" Margin="10" Background="#7C5CFF" Style="{StaticResource CheckBoxStyle}"/>
-                            <Button Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}"/>
-                            <Button Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}"/>
+                            <Button x:Name="PreviousVideo" Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}">
+                                <Button.Content>
+                                    <Image Source="{Binding Path=IconsProviderService[NextVideo]}" Width="16" Height="16" Stretch="Uniform" RenderTransformOrigin="0.5,0.5">
+                                        <Image.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="-180"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Image.RenderTransform>
+                                    </Image>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="JumpBackward10s" Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}">
+                                <Button.Content>
+                                    <Image Source="{Binding Path=IconsProviderService[JumpBackward10s]}" Width="16" Height="16" Stretch="Uniform"/>
+                                </Button.Content>
+                            </Button>
+                            <CheckBox x:Name="PlayPause" Width="58" Height="58" Margin="10" Background="#7C5CFF" Style="{StaticResource CheckBoxStyle}">
+                                <CheckBox.Content>
+                                    <Image Width="16" Height="16" Stretch="Uniform">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{Binding Path=IconsProviderService[Play]}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType=CheckBox}}" Value="True">
+                                                        <Setter Property="Source" Value="{Binding Path=IconsProviderService[Pause]}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </CheckBox.Content>
+                            </CheckBox>
+                            <Button x:Name="JumpForward10s" Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}">
+                                <Button.Content>
+                                    <Image Source="{Binding Path=IconsProviderService[JumpForward10s]}" Width="16" Height="16" Stretch="Uniform"/>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="NextVideo" Width="42" Height="42" Margin="10" Style="{StaticResource ButtonStyle}">
+                                <Button.Content>
+                                    <Image Source="{Binding Path=IconsProviderService[NextVideo]}" Width="16" Height="16" Stretch="Uniform"/>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
                     </Border>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
                         <CheckBox Width="42" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}">
                             <CheckBox.Content>
-                                <Image Margin="5" Stretch="Uniform">
+                                <Image Width="16" Height="16" Stretch="Uniform">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{Binding Path=IconsProviderService[OffSubtitles]}"/>
@@ -386,9 +453,9 @@
                             </CheckBox.Content>
                         </CheckBox>
 
-                        <CheckBox x:Name="VolumeCheckBox" Width="42" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding VolumeViewModel.IsMuted, Mode=TwoWay}">
+                        <CheckBox x:Name="VolumeCheckBox" Width="42" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding IsMuted, Mode=TwoWay}">
                             <CheckBox.Content>
-                                <Image Margin="5" Stretch="Uniform">
+                                <Image Width="16" Height="16" Stretch="Uniform">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{Binding Path=IconsProviderService[Volume]}"/>
@@ -417,7 +484,7 @@
 
                         <CheckBox x:Name="FullScreenCheckBox" Width="42" Height="42" VerticalAlignment="Center" Margin="10" Style="{StaticResource CheckBoxStyle}" Checked="FullScreenCheckBox_Checked" Unchecked="FullScreenCheckBox_Unchecked">
                             <CheckBox.Content>
-                                <Image Margin="5" Stretch="Uniform">
+                                <Image Width="16" Height="16" Stretch="Uniform">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{Binding Path=IconsProviderService[FullScreenVideo]}"/>
