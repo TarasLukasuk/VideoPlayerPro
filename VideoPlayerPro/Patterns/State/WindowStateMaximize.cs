@@ -6,13 +6,25 @@ internal class WindowStateMaximize : WindowStateAbstract
 
     public override void EnterState(Window window)
     {
-        window.WindowState = WindowState.Maximized;
         IsEnter = true;
+
+        if (window is MainWindow mainWindow && mainWindow.WindowStateFullScreen.IsHiddenControles)
+        {
+            return;
+        }
+
+        window.WindowState = WindowState.Maximized;
     }
 
     public override void ExitState(Window window)
     {
-        window.WindowState = WindowState.Normal;
         IsEnter = false;
+
+        if (window is MainWindow mainWindow && mainWindow.WindowStateFullScreen.IsHiddenControles)
+        {
+            return;
+        }
+
+        window.WindowState = WindowState.Normal;
     }
 }

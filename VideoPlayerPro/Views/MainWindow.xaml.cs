@@ -9,8 +9,16 @@ public partial class MainWindow : Window
     private readonly WindowStateBlock _windowStateBlock;
     private readonly WindowStateMaximize _windowStateMaximize;
     private readonly WindowStateFullScreen _windowStateFullScreen;
+    private readonly WindowControlsVisibilityState _windowControlsVisibilityState;
     private readonly WindowStateMinimaze _windowStateMinimaze;
     private readonly WindowStateClose _windowStateClose;
+
+    internal WindowStateBlock WindowStateBlock => _windowStateBlock;
+    internal WindowStateMaximize WindowStateMaximize => _windowStateMaximize;
+    internal WindowStateFullScreen WindowStateFullScreen => _windowStateFullScreen;
+    internal WindowControlsVisibilityState WindowControlsVisibilityState => _windowControlsVisibilityState;
+    internal WindowStateMinimaze WindowStateMinimaze => _windowStateMinimaze;
+    internal WindowStateClose WindowStateClose => _windowStateClose;
 
     public MainWindow()
     {
@@ -26,6 +34,7 @@ public partial class MainWindow : Window
         _windowStateBlock = new WindowStateBlock();
         _windowStateMaximize = new WindowStateMaximize();
         _windowStateFullScreen = new WindowStateFullScreen();
+        _windowControlsVisibilityState = new WindowControlsVisibilityState();
         _windowStateMinimaze = new WindowStateMinimaze();
         _windowStateClose = new WindowStateClose();
     }
@@ -45,42 +54,14 @@ public partial class MainWindow : Window
 
     private void HideControls()
     {
-        if (FullScreenCheckBox.IsChecked == true)
-        {
-            TopBar.Visibility = Visibility.Collapsed;
-        }
-
-        BottomBorder.Visibility = Visibility.Collapsed;
+        _stateContext.SetState(_windowControlsVisibilityState);
+        _stateContext.HidenControles(this);
     }
 
     private void ShowControls()
     {
-        //if (_isBlock)
-        //    return;
-
-
-        //if (_isHidenToppBar)
-        //{
-        //    BottomBorder.Visibility = Visibility.Visible;
-        //    return;
-        //}
-
-        //if (FullScreenCheckBox.IsChecked == false)
-        //{
-        //    TopBar.Visibility = Visibility.Visible;
-        //}
-
-        //if (_isNowFullScreen && !_isHidenToppBar)
-        //{
-        //    BottomBorder.Visibility = Visibility.Visible;
-        //    return;
-        //}
-
-        //if (_isNowFullScreen)
-        //{
-        //    BottomBorder.Visibility = Visibility.Visible;
-        //    return;
-        //}
+        _stateContext.SetState(_windowControlsVisibilityState);
+        _stateContext.ShowControles(this);
     }
 
     private void MainWindow_Activated(object? sender, EventArgs e)

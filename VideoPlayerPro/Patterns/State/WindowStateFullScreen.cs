@@ -6,19 +6,32 @@ internal class WindowStateFullScreen : WindowControlesStateAbstract
 
     public override void HidenControles(MainWindow window)
     {
-        window.TopBar.Visibility = Visibility.Visible;
+        IsHiddenControles = false;
 
-        if (IsHiddenControles)
-            return;
+        if (window.WindowStateMaximize.IsEnter)
+        {
+            window.WindowState = WindowState.Maximized;
+        }
+        else
+        {
+            window.WindowState = WindowState.Normal;
+        }
 
-        window.WindowState = WindowState.Normal;
-        IsHiddenControles = true;
+        if (window.WindowStateBlock.IsHiddenControles)
+        {
+            window.TopBar.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            window.TopBar.Visibility = Visibility.Visible;
+        }
     }
 
     public override void ShowControles(MainWindow window)
     {
+        IsHiddenControles = true;
+
         window.TopBar.Visibility = Visibility.Collapsed;
         window.WindowState = WindowState.Maximized;
-        IsHiddenControles = false;
     }
 }
