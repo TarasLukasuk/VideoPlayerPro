@@ -15,5 +15,3 @@ global using System.Windows.Controls;
 global using VideoPlayerPro.ViewModels;
 global using System.Windows.Threading;
 global using System.Windows.Input;
-global using VideoPlayerPro.Views;
-global using VideoPlayerPro.Patterns.State;

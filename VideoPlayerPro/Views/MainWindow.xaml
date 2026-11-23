@@ -339,7 +339,7 @@
                         <Button x:Name="MinimizeWindow" Style="{StaticResource WindowButtonStyle}" Click="MinimizeWindow_Click">
                             <Image Source="{Binding Path=IconsProviderService[Minimize]}" Width="16" Height="16" Stretch="Uniform"/>
                         </Button>
-                        <CheckBox x:Name="MaximizeWindow" Style="{StaticResource WindowCheckStyle}" Checked="MaximizeWindow_Checked" Unchecked="MaximizeWindow_Unchecked" >
+                        <CheckBox x:Name="MaximizeWindow" Style="{StaticResource WindowCheckStyle}" Checked="MaximizeWindow_Checked" Unchecked="MaximizeWindow_Unchecked">
                             <CheckBox.Content>
                                 <Image Width="16" Height="16" Stretch="Uniform">
                                     <Image.Style>

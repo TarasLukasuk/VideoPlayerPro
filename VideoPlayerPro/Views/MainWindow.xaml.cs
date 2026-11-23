@@ -4,21 +4,9 @@ public partial class MainWindow : Window
 {
     private readonly MainViewModel _viewModel = new();
     private CursorLocatorService? _cursorService;
-    private readonly StateContext _stateContext = new();
-
-    private readonly WindowStateBlock _windowStateBlock;
-    private readonly WindowStateMaximize _windowStateMaximize;
-    private readonly WindowStateFullScreen _windowStateFullScreen;
-    private readonly WindowControlsVisibilityState _windowControlsVisibilityState;
-    private readonly WindowStateMinimaze _windowStateMinimaze;
-    private readonly WindowStateClose _windowStateClose;
-
-    internal WindowStateBlock WindowStateBlock => _windowStateBlock;
-    internal WindowStateMaximize WindowStateMaximize => _windowStateMaximize;
-    internal WindowStateFullScreen WindowStateFullScreen => _windowStateFullScreen;
-    internal WindowControlsVisibilityState WindowControlsVisibilityState => _windowControlsVisibilityState;
-    internal WindowStateMinimaze WindowStateMinimaze => _windowStateMinimaze;
-    internal WindowStateClose WindowStateClose => _windowStateClose;
+    private bool isMaximized;
+    private bool isFullScreen;
+    private bool _isBlock;
 
     public MainWindow()
     {
@@ -30,13 +18,6 @@ public partial class MainWindow : Window
         Closed += MainWindow_Closed;
         Activated += MainWindow_Activated;
         Deactivated += MainWindow_Deactivated;
-
-        _windowStateBlock = new WindowStateBlock();
-        _windowStateMaximize = new WindowStateMaximize();
-        _windowStateFullScreen = new WindowStateFullScreen();
-        _windowControlsVisibilityState = new WindowControlsVisibilityState();
-        _windowStateMinimaze = new WindowStateMinimaze();
-        _windowStateClose = new WindowStateClose();
     }
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -52,21 +33,11 @@ public partial class MainWindow : Window
         }
     }
 
-    private void HideControls()
-    {
-        _stateContext.SetState(_windowControlsVisibilityState);
-        _stateContext.HidenControles(this);
-    }
-
-    private void ShowControls()
-    {
-        _stateContext.SetState(_windowControlsVisibilityState);
-        _stateContext.ShowControles(this);
-    }
-
     private void MainWindow_Activated(object? sender, EventArgs e)
     {
         _cursorService?.StartListening();
+
+        ShowControls();
     }
 
     private void MainWindow_Deactivated(object? sender, EventArgs e)
@@ -80,51 +51,111 @@ public partial class MainWindow : Window
         _cursorService = null;
     }
 
-    private void CloseWindow_Click(object sender, RoutedEventArgs e)
+    private void ShowControls()
     {
-        _stateContext.SetState(_windowStateClose);
-        _stateContext.EnterState(this);
+        if (_isBlock)
+            return;
+
+        if (isMaximized && isFullScreen)
+        {
+            TopBar.Visibility = Visibility.Collapsed;
+            BottomBorder.Visibility = Visibility.Visible;
+            return;
+        }
+
+        if (isMaximized && !isFullScreen)
+        {
+            if (isMaximized)
+            {
+                TopBar.Visibility = Visibility.Visible;
+                BottomBorder.Visibility = Visibility.Visible;
+                return;
+            }
+
+            TopBar.Visibility = Visibility.Visible;
+            BottomBorder.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        if (isFullScreen)
+        {
+            TopBar.Visibility = Visibility.Collapsed;
+            BottomBorder.Visibility = Visibility.Visible;
+            return;
+        }
+
+        TopBar.Visibility = Visibility.Visible;
+        BottomBorder.Visibility = Visibility.Visible;
     }
 
-    private void MinimizeWindow_Click(object sender, RoutedEventArgs e)
+    private void HideControls()
     {
-        _stateContext.SetState(_windowStateMinimaze);
-        _stateContext.EnterState(this);
+        TopBar.Visibility = Visibility.Collapsed;
+        BottomBorder.Visibility = Visibility.Collapsed;
+        
     }
 
-    private void FullScreenCheckBox_Checked(object sender, RoutedEventArgs e)
-    {
-        _stateContext.SetState(_windowStateFullScreen);
-        _stateContext.ShowControles(this);
-    }
-
-    private void FullScreenCheckBox_Unchecked(object sender, RoutedEventArgs e)
-    {
-        _stateContext.SetState(_windowStateFullScreen);
-        _stateContext.HidenControles(this);
-    }
+    private void RestoreWindow() => WindowState = WindowState.Normal;
+    private void MinimizeWindow_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+    private void MaximizeWindows() => WindowState = WindowState.Maximized;
+    private void CloseWindow_Click(object sender, RoutedEventArgs e) => Close();
 
     private void MaximizeWindow_Checked(object sender, RoutedEventArgs e)
     {
-        _stateContext.SetState(_windowStateMaximize);
-        _stateContext.EnterState(this);
+        isMaximized = true;
+
+        MaximizeWindows();
     }
 
     private void MaximizeWindow_Unchecked(object sender, RoutedEventArgs e)
     {
-        _stateContext.SetState(_windowStateMaximize);
-        _stateContext.ExitState(this);
+        isMaximized = false;
+
+        RestoreWindow();
+    }
+
+    private void FullScreenCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        isFullScreen = true;
+
+        MaximizeWindows();
+
+        TopBar.Visibility = Visibility.Collapsed;
+    }
+
+    private void FullScreenCheckBox_Unchecked(object sender, RoutedEventArgs e)
+    {
+        isFullScreen = false;
+
+        if (isMaximized)
+        {
+            TopBar.Visibility = Visibility.Visible;
+            return;
+        }
+
+        TopBar.Visibility = Visibility.Visible;
+
+        RestoreWindow();
     }
 
     private void Block_Checked(object sender, RoutedEventArgs e)
     {
-        _stateContext.SetState(_windowStateBlock);
-        _stateContext.HidenControles(this);
+        _isBlock = true;
+
+        TopBar.Visibility = Visibility.Collapsed;
+        Menu.Visibility = Visibility.Collapsed;
+        Cast.Visibility = Visibility.Collapsed;
+        BottomBorder.Visibility = Visibility.Collapsed;
+
     }
 
     private void Block_Unchecked(object sender, RoutedEventArgs e)
     {
-        _stateContext.SetState(_windowStateBlock);
-        _stateContext.ShowControles(this);
+        _isBlock = false;
+
+        TopBar.Visibility = Visibility.Visible;
+        Menu.Visibility = Visibility.Visible;
+        Cast.Visibility = Visibility.Visible;
+        BottomBorder.Visibility = Visibility.Visible;
     }
 }
