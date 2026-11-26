@@ -1,4 +1,6 @@
-﻿namespace VideoPlayerPro.Controls;
+﻿using System.Windows.Media;
+
+namespace VideoPlayerPro.Controls;
 
 public partial class TriangleSlider : UserControl
 {

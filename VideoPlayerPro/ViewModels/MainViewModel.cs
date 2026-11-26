@@ -4,11 +4,21 @@ public class MainViewModel : ViewModelBase
 {
     private readonly double minVolume = 0;
     private readonly double maxVolume = 200;
+    private readonly VlcPlayerService _vlcPlayerService;
     private double _volume = 75;
-    private  double _previousVolume = 75;
+    private double _previousVolume = 75;
     private bool _isMuted;
 
+    public MainViewModel()
+    {
+        _vlcPlayerService = new VlcPlayerService();
+
+        FileCommands = new FileCommands(_vlcPlayerService);
+    }
+
     public IconsProviderService IconsProviderService { get; set; } = new IconsProviderService();
+    public MediaPlayer MediaPlayer => _vlcPlayerService.MediaPlayer;
+    public FileCommands FileCommands { get; }
 
     public double Volume
     {

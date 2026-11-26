@@ -16,21 +16,19 @@ public partial class MainWindow : Window
 
         Loaded += MainWindow_Loaded;
         Closed += MainWindow_Closed;
-        Activated += MainWindow_Activated;
-        Deactivated += MainWindow_Deactivated;
     }
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        if (_cursorService is not null)
+            return;
+
         _cursorService = new CursorLocatorService(this, TimeSpan.FromSeconds(3));
 
         _cursorService.OnCursorMoved += ShowControls;
         _cursorService.OnCursorIdle += HideControls;
 
-        if (IsActive)
-        {
-            MainWindow_Activated(this, EventArgs.Empty);
-        }
+        _cursorService.StartListening();
     }
 
     private void MainWindow_Activated(object? sender, EventArgs e)
@@ -54,7 +52,10 @@ public partial class MainWindow : Window
     private void ShowControls()
     {
         if (_isBlock)
+        {
+            Block.Visibility = Visibility.Visible;
             return;
+        }
 
         if (isMaximized && isFullScreen)
         {
@@ -90,6 +91,12 @@ public partial class MainWindow : Window
 
     private void HideControls()
     {
+        if (_isBlock)
+        {
+            Block.Visibility = Visibility.Collapsed;
+            return;
+        }
+
         TopBar.Visibility = Visibility.Collapsed;
         BottomBorder.Visibility = Visibility.Collapsed;
         

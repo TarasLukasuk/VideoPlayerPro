@@ -1,4 +1,6 @@
-﻿namespace VideoPlayerPro.Service;
+﻿using System.Windows.Media;
+
+namespace VideoPlayerPro.Service;
 
 public class IconsProviderService : ViewModelBase
 {

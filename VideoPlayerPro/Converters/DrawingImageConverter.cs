@@ -1,4 +1,6 @@
-﻿namespace VideoPlayerPro.Converters;
+﻿using System.Windows.Media;
+
+namespace VideoPlayerPro.Converters;
 
 internal static class DrawingImageConverter
 {

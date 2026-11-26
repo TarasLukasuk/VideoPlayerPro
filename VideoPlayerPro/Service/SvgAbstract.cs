@@ -1,4 +1,6 @@
-﻿namespace VideoPlayerPro.Service;
+﻿using System.Windows.Media;
+
+namespace VideoPlayerPro.Service;
 
 internal abstract class SvgAbstract
 {
